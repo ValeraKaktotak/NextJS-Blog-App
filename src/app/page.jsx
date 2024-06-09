@@ -1,59 +1,18 @@
-import Link from 'next/link'
+import CardList from '@/components/CardList/CardList'
+import CategoryList from '@/components/CategoryList/CategoryList'
+import Featured from '@/components/Featured/Featured'
+import Menu from '@/components/Menu/Menu'
+import styles from './homepage.module.css'
 
 export default function Home() {
   return (
-    <Link href='/'>
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-        temporibus nihil dolores ipsum consectetur voluptate enim, eius omnis
-        quibusdam laboriosam ad, veniam nobis sequi exercitationem excepturi et
-        culpa consequatur minus?
-      </h1>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam non
-      impedit inventore minima adipisci necessitatibus odit accusantium
-      doloremque. Vel maxime sunt beatae similique commodi. Non atque quisquam
-    </Link>
+    <div className={styles.container}>
+      <Featured />
+      <CategoryList />
+      <div className={styles.content}>
+        <CardList />
+        <Menu />
+      </div>
+    </div>
   )
 }
