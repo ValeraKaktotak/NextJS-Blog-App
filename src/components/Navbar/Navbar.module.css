@@ -16,6 +16,7 @@
   font-weight: bold;
 }
 .links {
+  align-items: center;
   display: flex;
   gap: 20px;
   font-size: 20px;
