@@ -1,6 +1,7 @@
 import Footer from '@/components/Footer/Footer'
 import Navbar from '@/components/Navbar/Navbar'
 import { ThemeContextProvider } from '@/context/ThemeContext'
+import AuthProvider from '@/providers/AuthProvider'
 import ThemeProvider from '@/providers/ThemeProvider'
 import { Inter } from 'next/font/google'
 import { cookies } from 'next/headers'
@@ -20,17 +21,19 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <ThemeContextProvider themeFromCookies={theme}>
-          <ThemeProvider>
-            <div className='container'>
-              <div className='wrapper'>
-                <Navbar />
-                {children}
-                <Footer />
+        <AuthProvider>
+          <ThemeContextProvider themeFromCookies={theme}>
+            <ThemeProvider>
+              <div className='container'>
+                <div className='wrapper'>
+                  <Navbar />
+                  {children}
+                  <Footer />
+                </div>
               </div>
-            </div>
-          </ThemeProvider>
-        </ThemeContextProvider>
+            </ThemeProvider>
+          </ThemeContextProvider>
+        </AuthProvider>
       </body>
     </html>
   )
