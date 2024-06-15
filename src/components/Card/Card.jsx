@@ -16,12 +16,12 @@ const Card = () => {
         <Link href='/'>
           <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
         </Link>
-        <p1 className={styles.desc}>
+        <p className={styles.desc}>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt
           quae laudantium suscipit ex debitis? Temporibus porro nulla eum in!
           Nostrum sit facilis, quos ullam nihil reprehenderit aperiam fugit
           inventore similique!
-        </p1>
+        </p>
         <Link href='/' className={styles.link}>
           Read More
         </Link>
