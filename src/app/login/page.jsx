@@ -1,11 +1,27 @@
 'use client'
 import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import styles from './Login.module.css'
 
 const LoginPage = () => {
   const { data, status } = useSession()
-  console.log(data)
-  console.log(status)
+  const router = useRouter()
+
+  if (status === 'loading') {
+    return <div className={styles.loading}>Loading...</div>
+  }
+
+  // if (status === 'authenticated') {
+  //   router.push('/')
+  // }
+  if (status === 'authenticated') {
+    setTimeout(() => {
+      router.push('/')
+    }, 0)
+
+    return null
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -25,7 +41,6 @@ const LoginPage = () => {
         >
           Sign in with GitHub
         </div>
-        <div className={styles.socialButton}>Sign in with Facebook</div>
       </div>
     </div>
   )
