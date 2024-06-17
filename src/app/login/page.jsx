@@ -4,16 +4,12 @@ import { useRouter } from 'next/navigation'
 import styles from './Login.module.css'
 
 const LoginPage = () => {
-  const { data, status } = useSession()
+  const { status } = useSession()
   const router = useRouter()
 
   if (status === 'loading') {
     return <div className={styles.loading}>Loading...</div>
   }
-
-  // if (status === 'authenticated') {
-  //   router.push('/')
-  // }
   if (status === 'authenticated') {
     setTimeout(() => {
       router.push('/')
