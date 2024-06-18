@@ -4,7 +4,7 @@ import styles from './Card.module.css'
 
 const Card = ({ item }) => {
   return (
-    <div className={styles.container}>
+    <div key={item.id} className={styles.container}>
       <div className={styles.imgContainer}>
         {item.img && (
           <Image src={item.img} alt='' fill className={styles.image} />
