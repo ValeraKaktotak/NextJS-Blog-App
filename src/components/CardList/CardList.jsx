@@ -2,16 +2,18 @@ import Card from '../Card/Card'
 import Pagination from '../Pagination/Pagination'
 import styles from './CardList.module.css'
 
-const getPosts = async (page) => {
-  const res = await fetch(`http://localhost:3000/api/posts?page=${page}`)
+const getPosts = async (page, cat) => {
+  const res = await fetch(
+    `http://localhost:3000/api/posts?page=${page}&cat=${cat || ''}`
+  )
   if (!res.ok) {
     throw new Error('Failed')
   }
   return res.json()
 }
 
-const CardList = async ({ page }) => {
-  const { posts, count } = await getPosts(page)
+const CardList = async ({ page, cat }) => {
+  const { posts, count } = await getPosts(page, cat)
 
   const POST_PER_PAGE = 2
   const hasPrev = POST_PER_PAGE * (page - 1) > 0

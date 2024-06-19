@@ -1,9 +1,36 @@
+'use client'
+
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
+import useSWR from 'swr'
 import styles from './Comments.module.css'
 
-const Comments = () => {
-  const status = 'authenticated'
+const fetcher = async (url) => {
+  const res = await fetch(url)
+  const data = await res.json()
+  if (!res.ok) {
+    const error = new Error(data.message)
+    throw error
+  }
+  return data
+}
+
+const Comments = ({ postSlug }) => {
+  const { status } = useSession()
+  const { data, mutate, isLoading } = useSWR(
+    `http://localhost:3000/api/comments?postSlug=${postSlug}`,
+    fetcher
+  )
+  const [desc, setDesc] = useState('')
+  const handleSubmit = async () => {
+    await fetch('/api/comments', {
+      method: 'POST',
+      body: JSON.stringify({ desc, postSlug })
+    })
+    mutate()
+  }
 
   return (
     <div className={styles.container}>
@@ -13,97 +40,38 @@ const Comments = () => {
           <textarea
             placeholder='write a comment ...'
             className={styles.input}
+            onChange={(e) => setDesc(e.target.value)}
           />
-          <button className={styles.button}>Send</button>
+          <button className={styles.button} onClick={handleSubmit}>
+            Send
+          </button>
         </div>
       ) : (
         <Link href='/login'>Login to write a comment</Link>
       )}
       <div className={styles.comments}>
-        <div className={styles.comment}>
-          <div className={styles.user}>
-            <Image
-              src='/p1.jpeg'
-              alt=''
-              width={50}
-              height={50}
-              className={styles.image}
-            />
-            <div className={styles.userInfo}>
-              <span className={styles.username}>John Snow</span>
-              <span className={styles.date}>14.06.2024</span>
-            </div>
-          </div>
-          <p className={styles.desc}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque quas
-            quia nesciunt dignissimos consequuntur doloribus deserunt asperiores
-            quod incidunt corrupti. Nemo tenetur est repellat obcaecati alias
-            sapiente ipsam nihil quas.
-          </p>
-        </div>
-        <div className={styles.comment}>
-          <div className={styles.user}>
-            <Image
-              src='/p1.jpeg'
-              alt=''
-              width={50}
-              height={50}
-              className={styles.image}
-            />
-            <div className={styles.userInfo}>
-              <span className={styles.username}>John Snow</span>
-              <span className={styles.date}>14.06.2024</span>
-            </div>
-          </div>
-          <p className={styles.desc}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque quas
-            quia nesciunt dignissimos consequuntur doloribus deserunt asperiores
-            quod incidunt corrupti. Nemo tenetur est repellat obcaecati alias
-            sapiente ipsam nihil quas.
-          </p>
-        </div>
-        <div className={styles.comment}>
-          <div className={styles.user}>
-            <Image
-              src='/p1.jpeg'
-              alt=''
-              width={50}
-              height={50}
-              className={styles.image}
-            />
-            <div className={styles.userInfo}>
-              <span className={styles.username}>John Snow</span>
-              <span className={styles.date}>14.06.2024</span>
-            </div>
-          </div>
-          <p className={styles.desc}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque quas
-            quia nesciunt dignissimos consequuntur doloribus deserunt asperiores
-            quod incidunt corrupti. Nemo tenetur est repellat obcaecati alias
-            sapiente ipsam nihil quas.
-          </p>
-        </div>
-        <div className={styles.comment}>
-          <div className={styles.user}>
-            <Image
-              src='/p1.jpeg'
-              alt=''
-              width={50}
-              height={50}
-              className={styles.image}
-            />
-            <div className={styles.userInfo}>
-              <span className={styles.username}>John Snow</span>
-              <span className={styles.date}>14.06.2024</span>
-            </div>
-          </div>
-          <p className={styles.desc}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque quas
-            quia nesciunt dignissimos consequuntur doloribus deserunt asperiores
-            quod incidunt corrupti. Nemo tenetur est repellat obcaecati alias
-            sapiente ipsam nihil quas.
-          </p>
-        </div>
+        {isLoading
+          ? 'Loading...'
+          : data?.map((item) => (
+              <div key={item.id} className={styles.comment}>
+                <div className={styles.user}>
+                  {item?.user?.image && (
+                    <Image
+                      src={item.user.image}
+                      alt=''
+                      width={50}
+                      height={50}
+                      className={styles.image}
+                    />
+                  )}
+                  <div className={styles.userInfo}>
+                    <span className={styles.username}>{item.user.name}</span>
+                    <span className={styles.date}>{item.createdAt}</span>
+                  </div>
+                </div>
+                <p className={styles.desc}>{item.desc}</p>
+              </div>
+            ))}
       </div>
     </div>
   )
