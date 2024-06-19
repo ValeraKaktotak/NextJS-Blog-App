@@ -17,7 +17,7 @@ const fetcher = async (url) => {
 }
 
 const Comments = ({ postSlug }) => {
-  const status = useSession()
+  const { status } = useSession()
   const { data, isLoading } = useSWR(
     `http://localhost:3000/api/comments?postSlug=${postSlug}`,
     fetcher
